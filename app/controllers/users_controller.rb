@@ -18,13 +18,33 @@ class UsersController < ApplicationController
         end
     end
 
+    def update
+        user = User.find(params[:id])
+        user.update(user_params)
+        render json: user
+    end
+
     def login
         user = User.find_by(username: params[:username])
         if user
             render json: user
         else
-            render json: {error: 'Username not found. Please try again.'}
+            render json: { error: 'Username not found. Please try again.' }
         end
+    end
+
+    def destroy
+        user = User.find(params[:id])
+        user.destroy_completely
+        render json: { message: 'Your account was successfully deleted.' }
+    end
+
+    def statistics
+        user = User.find_by(id: params[:id])
+        sessionsPlayed = user.number_of_sessions
+        totalProfitLoss = user.total_profit_loss
+        percentProfitability = user.percent_profitability
+        render json: { sessionsPlayed: sessionsPlayed, totalProfitLoss: totalProfitLoss, percentProfitability: percentProfitability }
     end
 
     private

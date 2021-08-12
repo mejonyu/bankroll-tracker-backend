@@ -12,12 +12,12 @@ class SessionsController < ApplicationController
     def create
         session = Session.create(session_params)
         session.belongs_to = params[:username]
+        session.save
         UserSession.create(user_id: params[:user_id], session_id: session.id)
-        byebug
         render json: session
     end
 
-    def index_for_user
+    def overall_user_sessions
         sessions = Session.where("belongs_to = '#{params[:user]}'")
         render json: sessions
     end

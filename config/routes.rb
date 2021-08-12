@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :users
 
   post '/login', to: 'users#login'
-  post '/index_for_user', to: 'sessions#index_for_user'
+  get '/statistics/:id', to: 'users#statistics'
+  post '/overall_user_sessions', to: 'sessions#overall_user_sessions'
 end
