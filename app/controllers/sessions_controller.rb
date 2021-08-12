@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
     def index
-        sessions = Session.all
+        sessions = Session.all.order('id')
         render json: sessions
     end
 
@@ -17,9 +17,21 @@ class SessionsController < ApplicationController
         render json: session
     end
 
+    def update
+        session = Session.find(params[:id])
+        session.update(session_params)
+        render json: session
+    end
+
     def overall_user_sessions
-        sessions = Session.where("belongs_to = '#{params[:user]}'")
+        sessions = Session.where("belongs_to = '#{params[:user]}'").order('id')
         render json: sessions
+    end
+
+    def destroy
+        session = Session.find(params[:id])
+        session.destroy
+        render json: { message: 'Your session was successfully deleted.' }
     end
 
     private
