@@ -12,6 +12,12 @@ class User < ApplicationRecord
         self.destroy
     end
 
+    def update_all(old_username, new_username)
+        Session.where(belongs_to: old_username).each do |session|
+            session.update(belongs_to: new_username)
+        end
+    end
+
     def number_of_sessions
         self.sessions.length
     end

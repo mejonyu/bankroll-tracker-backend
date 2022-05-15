@@ -6,4 +6,9 @@ class Session < ApplicationRecord
     validates :stakes, presence: true
     validates :buy_in, presence: true
     validates :out_for, presence: true
+
+    def destroy_completely
+        UserSession.where(session_id: self.id).delete_all
+        self.destroy
+    end
 end

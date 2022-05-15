@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
     def destroy
         session = Session.find(params[:id])
-        session.destroy
+        session.destroy_completely
         render json: { message: 'Your session was successfully deleted.' }
     end
 

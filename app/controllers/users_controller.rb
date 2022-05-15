@@ -20,7 +20,10 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(params[:id])
+        old_username = user.username
         user.update(user_params)
+        new_username = user.username
+        user.update_all(old_username, new_username)
         render json: user
     end
 
