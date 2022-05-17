@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
     def update
         if User.find_by(username: params[:username])
-            render json: {error: 'An error occurred creating your account. Please enter a unique username.'}
+            render json: {error: 'An error occurred updating your account. Please enter a unique username.'}
         else
             user = User.find(params[:id])
             old_username = user.username
