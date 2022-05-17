@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
     def create
         if User.find_by(username: params[:username])
-            render json: {error: 'An error occurred creating your account. Please enter a first name, last name, and a unique username.'}
+            render json: {error: 'An error occurred creating your account. Please enter a unique username.'}
         else
             user = User.create(user_params)
             render json: user
@@ -19,6 +19,8 @@ class UsersController < ApplicationController
     end
 
     def update
+        if User.find_by(username:params[:username])
+            renderjson: {error: 'An error occurred creating your account. Please enter a unique username.'}
         user = User.find(params[:id])
         old_username = user.username
         user.update(user_params)
